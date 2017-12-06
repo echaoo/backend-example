@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jquery-2.1.1.js"></script>
+</head>
+<body>
+<button id="test">test</button>
+<script>
+    $('#test').on('click', function () {
+        $.ajax({
+            url: 'localhost:3000/postinfo',
+            type: 'post',
+            data: {name: 123, id: 345},
+            success: function (res) {
+                console.log(res)
+            }
+        })
+    })
+</script>
+</body>
+</html>
