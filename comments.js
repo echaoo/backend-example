@@ -9,7 +9,8 @@ module.exports = {
 
     // 添加用户
     add: function (req, res, next) {
-        var param = req.query || req.params;
+        var param = req.body || req.params;
+        console.log(param)
         var connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.insert, [param.title, param.comments, param.date], function (err, rows, fields) {
