@@ -9,8 +9,7 @@ module.exports = {
 
     // 添加留言信息
     add: function (req, res, next) {
-        var param = req.body;
-        console.log(param)
+        var param = req.body || req.params;
         var connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.insert, [param.title, param.comments, param.date], function (err, rows, fields) {
