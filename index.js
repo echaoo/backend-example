@@ -28,6 +28,10 @@ app.get('/api/comments', function (req, res, next) {
     comments.getMessages(req, res, next);
 });
 
+app.post('/api/delete', function (req, res, next) {
+    comments.deleteMessage(req, res, next);
+});
+
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
 });

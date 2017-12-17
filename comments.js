@@ -7,10 +7,9 @@ var $sql = require('./commentsSqlMapping');
 
 module.exports = {
 
-    // 添加用户
+    // 添加留言信息
     add: function (req, res, next) {
         var param = req.body || req.params;
-        console.log(param)
         var connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.insert, [param.title, param.comments, param.date], function (err, rows, fields) {
@@ -19,16 +18,17 @@ module.exports = {
                     code: '1',
                     msg: '操作失败'
                 });
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "增加成功"
+                });
             }
-            res.json({
-                code: 200,
-                msg: "增加成功"
-            });
         });
         connection.end();
     },
 
-    // 返回用户信息
+    // 返回留言信息
     getMessages: function (req, res, next) {
         var connection = mysql.createConnection(config.mysql);
         connection.connect();
@@ -44,6 +44,27 @@ module.exports = {
                 data: rows,
                 msg: '操作成功'
             });
+        });
+        connection.end();
+    },
+
+    // 删除留言信息
+    deleteMessage: function (req, res, next) {
+        var param = req.body;
+        var connection = mysql.createConnection(config.mysql);
+        connection.connect();
+        connection.query($sql.deleteMessage, [param.id], function (err, rows, fields) {
+            if (err) {
+                res.json({
+                    code: '1',
+                    msg: '操作失败'
+                });
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "删除成功"
+                });
+            }
         });
         connection.end();
     }
