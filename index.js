@@ -1,4 +1,3 @@
-var db_connecter = require('./dbConfig');
 var express = require('express');
 var bodyParser = require('body-parser');
 var comments = require('./comments');
