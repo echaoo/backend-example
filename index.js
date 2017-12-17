@@ -29,6 +29,10 @@ app.get('/api/comments', function (req, res, next) {
     comments.getMessages(req, res, next);
 });
 
+app.get('/api/comments/count', function (req, res, next) {
+    comments.getTotalNum(req, res, next);
+});
+
 app.post('/api/delete', function (req, res, next) {
     comments.deleteMessage(req, res, next);
 });

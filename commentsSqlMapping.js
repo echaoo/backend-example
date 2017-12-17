@@ -8,8 +8,9 @@ var comments = {
     '   PRIMARY KEY ( `id` )\n' +
     ')ENGINE=InnoDB DEFAULT CHARSET=utf8;',
     insert:'INSERT INTO tutorial(title, comments, date) VALUES(?,?,?)',
-    queryMessages: 'select * from tutorial',
-    deleteMessage: 'UPDATE tutorial SET flag = 1 where (id = ? && flag = 0)'
+    queryMessages: 'SELECT * FROM tutorial',
+    deleteMessage: 'UPDATE tutorial SET flag = 1 where (id = ? && flag = 0)',
+    queryTotalNum: 'SELECT COUNT(*) FROM tutorial'
 };
 
 module.exports = comments;

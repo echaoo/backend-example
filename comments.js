@@ -23,8 +23,7 @@ module.exports = {
         const param = req.body || req.params;
         const connection = mysql.createConnection(config.mysql);
         connection.connect();
-        connection.query($sql.insert, [param.title, param.comments, param.date], function (err, rows, fields) {
-            console.log(err)
+        connection.query($sql.insert, [param.title, param.content, param.time], function (err, rows, fields) {
             if (err) {
                 res.json({
                     code: '1',
@@ -56,6 +55,28 @@ module.exports = {
                 data: rows,
                 msg: '操作成功'
             });
+        });
+        connection.end();
+    },
+
+    // 返回总留言条数
+    getTotalNum(req, res, next) {
+        const connection = mysql.createConnection(config.mysql);
+        connection.connect();
+        connection.query($sql.queryTotalNum, function (err, rows, fields) {
+            console.log(rows[0]['COUNT(*)'])
+            if (err) {
+                res.json({
+                    code: '1',
+                    msg: '操作失败'
+                });
+            } else {
+                res.json({
+                    code: 200,
+                    data: rows[0]['COUNT(*)'],
+                    msg: '操作成功'
+                });
+            }
         });
         connection.end();
     },
