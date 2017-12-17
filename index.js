@@ -1,12 +1,20 @@
-var db_connecter = require('./dbConfig')
+var db_connecter = require('./dbConfig');
 var express = require('express');
 var bodyParser = require('body-parser');
+var comments = require('./comments');
+
 var app = express();
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-var comments = require('./comments')
-// var urlencodedParser = bodyParser.urlencoded({ extended: true })
 
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 
 app.get('/', function (req, res) {
     res.send('heheh')

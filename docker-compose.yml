@@ -1,0 +1,18 @@
+web:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    volumes:
+      - .:/data
+    command: sh start.sh
+
+db:
+  image: mysql:5.7
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_DATABASE: tutorials
+    MYSQL_ROOT_PASSWORD: demo
