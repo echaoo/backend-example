@@ -1,18 +1,30 @@
 "use strict";
 
 // 实现与MySQL交互
-var mysql = require('mysql');
-var config = require('./dbConfig');
-var $sql = require('./commentsSqlMapping');
+const mysql = require('mysql');
+const config = require('./dbConfig');
+const $sql = require('./commentsSqlMapping');
 
 module.exports = {
+    init() {
+        const connection = mysql.createConnection(config.mysql);
+        connection.connect();
+        connection.query($sql.createTable, function (err, rows, fields) {
+            if (err) {
+                console.error('error create: ' + err.stack);
+                return;
+            }
+        });
+        connection.end();
+    },
 
     // 添加留言信息
-    add: function (req, res, next) {
-        var param = req.body || req.params;
-        var connection = mysql.createConnection(config.mysql);
+    add(req, res, next) {
+        const param = req.body || req.params;
+        const connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.insert, [param.title, param.comments, param.date], function (err, rows, fields) {
+            console.log(err)
             if (err) {
                 res.json({
                     code: '1',
@@ -29,8 +41,8 @@ module.exports = {
     },
 
     // 返回留言信息
-    getMessages: function (req, res, next) {
-        var connection = mysql.createConnection(config.mysql);
+    getMessages(req, res, next) {
+        const connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.queryMessages, function (err, rows, fields) {
             if (err) {
@@ -49,9 +61,9 @@ module.exports = {
     },
 
     // 删除留言信息
-    deleteMessage: function (req, res, next) {
-        var param = req.body;
-        var connection = mysql.createConnection(config.mysql);
+    deleteMessage(req, res, next) {
+        const param = req.body;
+        const connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.deleteMessage, [param.id], function (err, rows, fields) {
             if (err) {

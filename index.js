@@ -15,6 +15,8 @@ app.all('/*', function(req, res, next) {
     next();
 });
 
+comments.init()
+
 app.get('/', function (req, res) {
     res.send('heheh')
 });
