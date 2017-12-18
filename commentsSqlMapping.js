@@ -8,9 +8,11 @@ var comments = {
     '   PRIMARY KEY ( `id` )\n' +
     ')ENGINE=InnoDB DEFAULT CHARSET=utf8;',
     insert:'INSERT INTO tutorial(title, comments, date) VALUES(?,?,?)',
-    queryMessages: 'SELECT * FROM tutorial',
+    queryMessages (connection, sortedField, sortedMth) {
+        return 'SELECT * FROM tutorial WHERE title LIKE "%"?"%" ORDER BY' + connection.escapeId(sortedField) + ' ' + sortedMth + ' LIMIT ?,?'
+    },
     deleteMessage: 'UPDATE tutorial SET flag = 1 where (id = ? && flag = 0)',
-    queryTotalNum: 'SELECT COUNT(*) FROM tutorial'
+    queryTotalNum: 'SELECT COUNT(*) F ROM tutorial'
 };
 
 module.exports = comments;

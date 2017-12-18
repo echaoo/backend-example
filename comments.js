@@ -23,7 +23,7 @@ module.exports = {
         const param = req.body || req.params;
         const connection = mysql.createConnection(config.mysql);
         connection.connect();
-        connection.query($sql.insert, [param.title, param.content, param.time], function (err, rows, fields) {
+        let query = connection.query($sql.insert, [param.title, param.content, param.time], function (err, rows, fields) {
             if (err) {
                 res.json({
                     code: '1',
@@ -36,26 +36,31 @@ module.exports = {
                 });
             }
         });
+        console.log(query.sql)
         connection.end();
     },
 
     // 返回留言信息
     getMessages(req, res, next) {
+        const params = req.query
+        let order = params.order.split(' ')
         const connection = mysql.createConnection(config.mysql);
         connection.connect();
-        connection.query($sql.queryMessages, function (err, rows, fields) {
+        let query = connection.query($sql.queryMessages(connection, order[0], order[1]), [params.title, parseInt(params.offset), parseInt(params.limit)], function (err, rows, fields) {
             if (err) {
                 res.json({
                     code: '1',
                     msg: '操作失败'
                 });
+            } else {
+                res.json({
+                    code: 200,
+                    data: rows,
+                    msg: '操作成功'
+                });
             }
-            res.json({
-                code: 200,
-                data: rows,
-                msg: '操作成功'
-            });
         });
+        console.log(query.sql)
         connection.end();
     },
 
@@ -64,7 +69,6 @@ module.exports = {
         const connection = mysql.createConnection(config.mysql);
         connection.connect();
         connection.query($sql.queryTotalNum, function (err, rows, fields) {
-            console.log(rows[0]['COUNT(*)'])
             if (err) {
                 res.json({
                     code: '1',
