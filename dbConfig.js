@@ -1,7 +1,7 @@
 // var mysql      = require('mysql');
 module.exports = {
     mysql: {
-        host     : 'localhost',
+        host     : 'db',
         user     : 'root',
         password : 'demo',
         database : 'tutorials'

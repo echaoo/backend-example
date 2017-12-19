@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
     res.send('heheh')
 });
 
-app.post('/postinfo', function (req, res, next) {
+app.post('/api/add', function (req, res, next) {
     comments.add(req, res, next);
 });
 

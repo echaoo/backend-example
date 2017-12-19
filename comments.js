@@ -36,7 +36,6 @@ module.exports = {
                 });
             }
         });
-        console.log(query.sql)
         connection.end();
     },
 
