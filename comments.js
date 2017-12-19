@@ -46,7 +46,7 @@ module.exports = {
         let order = params.order.split(' ')
         const connection = mysql.createConnection(config.mysql);
         connection.connect();
-        let query = connection.query($sql.queryMessages(connection, order[0], order[1]), [params.title, parseInt(params.offset), parseInt(params.limit)], function (err, rows, fields) {
+        let query = connection.query($sql.queryMessages(connection, order[0], order[1]), [params.title || '', parseInt(params.offset) || 0, parseInt(params.limit) || 10], function (err, rows, fields) {
             if (err) {
                 res.json({
                     code: '1',
