@@ -12,7 +12,7 @@
 
 2.保证你的电脑上有docker
 
- 如果你已经修改了数据库配置，成功的连接到了新建的与本例相同名字数据库，保证表名，字段名等与本例相同(文章末会列出)。此时，你需要npm install一下，然后输入node index.js就可以了。此时，打开localhost:3000查看。
+ 如果你已经修改了数据库配置，成功的连接到了新建的与本例相同名字数据库，保证表名，字段名等与本例相同(文章末会列出)。此时，你需要npm install一下，然后输入node index.js, 打开localhost:3000查看。
 
  如果你的电脑上有docker，直接输入命令docker-compose up 就OK啦
 
@@ -45,6 +45,15 @@
 | ------------- |:-------------:| -----:| -----:|
 | id     | 留言id | 是 | - |
 
+
+### 其他
+
+本项目使用的数据库名为tutorials，表名tutorial，字段如下：
+- `id` int (auto increment, unique, primary key)
+- `comments` (varchar(255))
+-  `date` (varchar(255))
+- `author` (varchar(255))
+-  `title` (varchar(255))
 
 ### 参考资料
 如果你想学习更多：
