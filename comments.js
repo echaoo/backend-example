@@ -42,7 +42,7 @@ module.exports = {
     // 返回留言信息
     getMessages(req, res, next) {
         const params = req.query
-        let order = params.order.split(' ')
+        let order = params.order.split(' ') || ['id', 'ASC']
         const connection = mysql.createConnection(config.mysql);
         connection.connect();
         let query = connection.query($sql.queryMessages(connection, order[0], order[1]), [params.title || '', parseInt(params.offset) || 0, parseInt(params.limit) || 10], function (err, rows, fields) {

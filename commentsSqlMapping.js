@@ -12,7 +12,7 @@ var comments = {
         return 'SELECT * FROM tutorial WHERE title LIKE "%"?"%" ORDER BY' + connection.escapeId(sortedField) + ' ' + sortedMth + ' LIMIT ?,?'
     },
     deleteMessage: 'UPDATE tutorial SET flag = 1 where (id = ? && flag = 0)',
-    queryTotalNum: 'SELECT COUNT(*) F ROM tutorial'
+    queryTotalNum: 'SELECT COUNT(*) FROM tutorial'
 };
 
 module.exports = comments;
